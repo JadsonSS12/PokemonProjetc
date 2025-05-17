@@ -3,6 +3,7 @@ package com.PokemonRegister.PokemonRegister.service;
 import com.PokemonRegister.PokemonRegister.entity.Pokemon;
 import com.PokemonRegister.PokemonRegister.repository.PokemonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,5 +34,10 @@ public class PokemonService {
     public void delete(Long id){
         pokemonRepository.deleteById(id);
         return;
+    }
+
+    public List<Pokemon> sort(){
+        Sort sort = Sort.by("name").ascending();
+        return pokemonRepository.findAll(sort);
     }
 }
