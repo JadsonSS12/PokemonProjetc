@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/pokemon")
+
 @RestController
+@RequestMapping("/api/pokemon")
 public class PokemonController {
 
     @Autowired
@@ -20,21 +21,21 @@ public class PokemonController {
         return pokemonService.create(pokemon);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public Pokemon update(@RequestBody Pokemon pokemon){
         return pokemonService.update(pokemon);
     }
 
+    @GetMapping("/list")
     public List<Pokemon> list(){
         return pokemonService.list();
     }
 
-    @DeleteMapping({"id"})
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id){
         pokemonService.delete(id);
     }
 
-    @GetMapping
     public List<Pokemon> sort(){
         return pokemonService.sort();
     }
