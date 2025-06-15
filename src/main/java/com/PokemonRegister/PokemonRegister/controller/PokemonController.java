@@ -10,12 +10,13 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/pokemon")
+@RequestMapping("/pokemons")
 public class PokemonController {
 
     @Autowired
     PokemonService pokemonService;
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public Pokemon create(@RequestBody Pokemon pokemon){
         return pokemonService.create(pokemon);
@@ -26,17 +27,21 @@ public class PokemonController {
         return pokemonService.update(pokemon);
     }
 
-    @GetMapping("/list")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @GetMapping
     public List<Pokemon> list(){
         return pokemonService.list();
     }
+
+    /*@GetMapping
+    public List<Pokemon> sort(){
+        return pokemonService.sort();
+    }*/
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id){
         pokemonService.delete(id);
     }
 
-    public List<Pokemon> sort(){
-        return pokemonService.sort();
-    }
+
 }

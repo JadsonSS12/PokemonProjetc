@@ -19,7 +19,9 @@ public class Pokemon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String name;
+    @Enumerated(EnumType.STRING)
     Type type;
+    String imagePath;
     float atack;
     float defense;
 }
