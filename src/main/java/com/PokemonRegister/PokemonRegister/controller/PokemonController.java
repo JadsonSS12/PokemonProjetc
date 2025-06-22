@@ -33,10 +33,10 @@ public class PokemonController {
         return pokemonService.list();
     }
 
-    /*@GetMapping
-    public List<Pokemon> sort(){
-        return pokemonService.sort();
-    }*/
+    @GetMapping("/buscar")
+    public List<Pokemon> findByNameContainingIgnoreCase(@RequestParam String name) {
+        return pokemonService.findByNameContainingIgnoreCase(name);
+    }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id){

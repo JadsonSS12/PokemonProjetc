@@ -40,4 +40,8 @@ public class PokemonService {
         Sort sort = Sort.by("name").ascending();
         return pokemonRepository.findAll(sort);
     }
+
+    public List<Pokemon> findByNameContainingIgnoreCase(String name){
+        return pokemonRepository.findByNameContainingIgnoreCase(name);
+    }
 }
