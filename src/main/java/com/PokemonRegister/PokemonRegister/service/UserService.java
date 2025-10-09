@@ -16,13 +16,14 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User update(User user){
-        try{
-            userRepository.findById(user.getId());
-        }catch(Exception e){
-            System.out.println("O usuário não existe");
-        }
-        return userRepository.save(user);
+    public User update(Long id, User user){
+        return userRepository.findById(id)
+                .map(userToUpdate -> { // 'map' só executa se o usuário for encontrado
+                    userToUpdate.setName(user.getName());
+                    userToUpdate.setEmail(user.getEmail());
+                    userToUpdate.setPassword(user.getPassword());
+                    return userRepository.save(userToUpdate);
+                }).orElseThrow(() -> new RuntimeException("Usuário não encontrado com o id: " + id));
     }
 
     public void delete(Long id){

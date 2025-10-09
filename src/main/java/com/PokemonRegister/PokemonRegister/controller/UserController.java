@@ -4,6 +4,7 @@ package com.PokemonRegister.PokemonRegister.controller;
 import com.PokemonRegister.PokemonRegister.entity.User;
 import com.PokemonRegister.PokemonRegister.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,14 +21,16 @@ public class UserController {
         return userService.create(user);
     }
 
-    @PutMapping("/{id}")
-    public User update(@RequestBody User user){
+    @PutMapping("/update/{id}")
+    public ResponseEntity<User> update(@PathVariable("id") Long id, @RequestBody User user){
         try{
-            userService.findById(user);
+            User userUpdate = userService.update(id, user);
+            return ResponseEntity.ok(userUpdate);
         }catch(Exception e){
             System.out.println("Usuário não encontrado");
+            return ResponseEntity.notFound().build();
         }
-        return userService.update(user);
+       // return userService.update(user);
     }
 
     @GetMapping("/list")
@@ -35,7 +38,7 @@ public class UserController {
         return userService.list();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable("id") Long id){
         userService.delete(id);
     }
